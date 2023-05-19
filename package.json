@@ -1,6 +1,6 @@
 {
   "name": "rehype-cl-img",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A rehype plugin for Contentlayer to copy body images to the public folder.",
   "main": "dist/cjs/index.js",
   "files": [
