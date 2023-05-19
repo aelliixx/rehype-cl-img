@@ -7,9 +7,9 @@ import sharp from "sharp";
 import fs from "fs/promises";
 
 type Options = {
-    publicDir: string,
+    publicDir?: string
     resourceDir: string,
-    sourceDir: string
+    excludeDir?: string
 }
 
 const staticImages: Plugin<[Options], Root> = (options: Options) => (tree: Root, file: VFileWithOutput<unknown>, done: TransformCallback<Root>) => {
@@ -41,8 +41,10 @@ const processImage = async (options: Options, file: VFileWithOutput<unknown>, no
     const {width, height} = await image.metadata();
 
     // Filter out the source dir (e.g. "/images/") because we don't want to add another images folder in the public folder.
-    const src = path.join(directory, filePath.replace(options.sourceDir, "")); // e.g. "reflection/example.png"
-    const target = path.join(process.cwd(), options.publicDir, src); // e.g. "/home/user/WebstormProjects/ue-docs/public/docs/reflection/example.png"
+    let src = path.join(directory, filePath);
+    if (options.excludeDir !== undefined)
+        src = src.replace(options.excludeDir, ""); // e.g. "reflection/example.png"
+    const target = path.join(process.cwd(), (options.publicDir || "public"), options.resourceDir, src); // e.g. "/home/user/WebstormProjects/ue-docs/public/docs/reflection/example.png"
     const targetDir = path.dirname(target); // e.g. "/home/user/WebstormProjects/ue-docs/public/docs/reflection"
 
     await fs.mkdir(targetDir, {recursive: true});
@@ -52,9 +54,8 @@ const processImage = async (options: Options, file: VFileWithOutput<unknown>, no
         ...node.properties,
         width,
         height,
-        src: path.join(options.resourceDir, src), // e.g. "/docs/reflection/example.png"
+        src: "/" + path.join(options.resourceDir, src), // e.g. "/docs/reflection/example.png"
     }
 }
-
 
 export default staticImages;

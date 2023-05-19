@@ -1,40 +1,39 @@
 {
-  "name": "rehype-cl-img",
-  "version": "1.0.1",
-  "description": "A rehype plugin for Contentlayer to copy body images to the public folder.",
-  "main": "dist/cjs/index.js",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "rm -rf dist/ && npm run build:cjs",
-    "build:cjs": "tsc --module CommonJS --outDir dist/cjs"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aelliixx/rehype-cl-img.git"
-  },
-  "keywords": [
-    "rehype",
-    "contentlayer",
-    "images"
-  ],
-  "author": "aelliixx",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/aelliixx/rehype-cl-img/issues"
-  },
-  "homepage": "https://github.com/aelliixx/rehype-cl-img#readme",
-  "devDependencies": {
-    "@types/hast": "^2.3.4",
-    "@types/node": "^20.2.1",
-    "typescript": "^5.0.4"
-  },
-  "dependencies": {
-    "hast": "^1.0.0",
-    "sharp": "^0.32.1",
-    "unified": "^10.1.2",
-    "unist-util-visit": "^4.1.2",
-    "contentlayer": "^0.3.2"
-  }
+    "name": "rehype-cl-img",
+    "version": "1.1.2",
+    "description": "A rehype plugin for Contentlayer to copy body images to the public folder.",
+    "main": "index.js",
+    "module": "index.js",
+    "type": "module",
+    "types": "index.d.ts",
+    "scripts": {
+        "build": "rm -rf dist/ && tsc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/aelliixx/rehype-cl-img.git"
+    },
+    "keywords": [
+        "rehype",
+        "contentlayer",
+        "images"
+    ],
+    "author": "aelliixx",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/aelliixx/rehype-cl-img/issues"
+    },
+    "homepage": "https://github.com/aelliixx/rehype-cl-img#readme",
+    "devDependencies": {
+        "@types/hast": "^2.3.4",
+        "@types/node": "^20.2.1",
+        "typescript": "^5.0.4"
+    },
+    "dependencies": {
+        "hast": "^1.0.0",
+        "sharp": "^0.32.1",
+        "unified": "^10.1.2",
+        "unist-util-visit": "^4.1.2",
+        "contentlayer": "^0.3.2"
+    }
 }
