@@ -12,7 +12,7 @@ type Options = {
     excludeDir?: string
 }
 
-const staticImages: Plugin<[Options], Root> = (options: Options) => (tree: Root, file: VFileWithOutput<unknown>, done: TransformCallback<Root>) => {
+const rehypeClImg: Plugin<[Options], Root> = (options: Options) => (tree: Root, file: VFileWithOutput<unknown>, done: TransformCallback<Root>) => {
     const tasks: Promise<void>[] = [];
 
     visit(tree, "element", (node: Element) => {
@@ -58,4 +58,4 @@ const processImage = async (options: Options, file: VFileWithOutput<unknown>, no
     }
 }
 
-export default staticImages;
+export default rehypeClImg;
