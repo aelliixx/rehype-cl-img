@@ -19,20 +19,23 @@ In your `contentlayer.config.js` include this:
 ```ts
 export default makeSource({
     mdx: {
-        rehypePlugins: [[staticImages, {publicDir: path.join("public", "<subdirectory in public folder>"), resourceDir: "/<subdirectory in public folder>", sourceDir: "<path to ignore>"}]]
+        rehypePlugins: [[rehypeClImg, {resourceDir: "/<subdirectory in public folder>", excludeDir: "<subdir to ignore>"}]]
     }
 });
 ```
 
-`publicDir` is the location where the images will be copied to.
+`rehypeClImg` accepts the following options:
 
-`resourceDir` is the location where the images will be looked up in in the compiled html anchor tag. This must match the `publicDir` but without the `/public` part of the path.
+`publicDir?: string`: is the name of your public directory. By default this is `public`.
 
-`sourceDir` is an optional part of the path that will be ignored. More on that below.
+`resourceDir: string`: is the desired subdirectory within the public folder where the images will be copied to.
+
+`excludeDir?: string`: will be removed from the target directory path. For example, if you keep your images in an `*/images/*`
+but don't want it to appear in the public directory (e.g. `/public/**/images/*`), you can add it to `excludeDir`.
 
 ### Example
 
-Say you have a following file structure
+Say you have the following file structure
 
 ```
 ├── app
@@ -54,7 +57,7 @@ Say you have a following file structure
 With the following plugin settings:
 
 ```ts
-rehypePlugins: [[staticImages, {publicDir: path.join("public", "docs"), resourceDir: "/docs", sourceDir: "images"}]]
+rehypePlugins: [[rehypeClImg, {resourceDir: "docs", excludeDir: "images"}]]
 ```
 
 the plugin will copy foo.png to the public folder and preserve its folder structure:
@@ -62,14 +65,14 @@ the plugin will copy foo.png to the public folder and preserve its folder struct
 ```
 ├── app
 ├── public
-│   └── docs                    // This comes from 'publicDir` setting
+│   └── docs                    // This comes from 'resourceDir' setting
 │       └── documentation
-│           └── foobar          // images subdirectory is ignored due to 'sourceDir' setting
+│           └── foobar          // 'images' subdirectory is ignored due to 'excludeDir' setting
 │               └──foo.png
 └── contentlayer-pages
     └── documentation
         └── foobar
-            ├── images
+            ├── images          // this subdirectory is ignored
             │   └── foo.png
             └── bar.mdx
 
