@@ -24,6 +24,27 @@ export default makeSource({
 });
 ```
 
+In your Nextjs page, override the `img` tag with a custom component:
+
+```ts
+const mdxComponent: MDXComponents = {
+    img: ({src, alt, width, height}) =>
+        <Image src={src!} alt={alt!} width={width as number} height={height as number}/>
+}
+
+export default function Page() {
+    // ...
+
+    const MDXContent = useMDXComponent(post.body.code);
+    return (
+        <div>
+            {/* ... */}
+            <MDXContent components={mdxComponent} />
+        </div>
+    );
+}
+```
+
 `rehypeClImg` accepts the following options:
 
 `publicDir?: string`: is the name of your public directory. By default this is `public`.
